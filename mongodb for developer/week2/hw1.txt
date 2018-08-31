@@ -1,0 +1,31 @@
+db.grades.aggregate([
+	{"$group": {
+		"_id": "$student_id",
+		"average": {$avg: "$score"}
+	}},
+	{"$sort": {"average": -1}},
+	{"$limit": 1}
+])
+
+***************cursor method******************
+db.grades.find({
+	"type": "exam",
+	"score": {$gte: 65}
+}).sort({score: 1})
+
+
+***************aggregation method***************
+db.grades.aggregate([
+	{
+		$match: {
+		"type": "exam",
+		"score": {$gte: 65}
+	}},
+	{$sort: {score: 1}}
+])
+
+*****************HW4***************************
+db.movieDetails.find({"year": 2013, "rated": "PG-13", "awards.wins": 0})
+
+*****************HW5***************************
+db.movieDetails.find({"countries.1": "Sweden"}).count()
