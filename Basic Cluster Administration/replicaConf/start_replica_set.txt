@@ -1,0 +1,25 @@
+rs.initiate()  # <- initiate the replica set
+
+use admin
+db.createUser({
+  user: "m103-admin",
+  pwd: "m103-pass",
+  roles: [
+    {role: "root", db: "admin"}
+  ]
+})  # <- create a root user
+
+mongo --host "m103-example/192.168.103.100:27011" -u "m103-admin" -p "m103-pass" --authenticationDatabase "admin"		
+		
+rs.status() # <- get a status report on our replica set
+
+rs.add("m103:27012")  # <- add secondary node to cluster
+rs.add("m103:27013")
+
+rs.remove("m103.mongodb.university:28000")
+
+rs.isMaster()
+
+db.serverStatus()["repl"]  # <- "rbid": count the number of rollbacks that have occured on this node
+
+rs.printReplicationInfo()  # <- return the oplog of node that we are currently connecting to
