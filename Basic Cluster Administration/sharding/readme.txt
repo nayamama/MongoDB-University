@@ -23,3 +23,4 @@ use <database>
 sh.enableSharding("<database>")
 db.collection.createIndex({"sku": 1})
 sh.shardCollection("<database>.<collection>", {"sku": 1})
+db.products.getShardDistribution()
