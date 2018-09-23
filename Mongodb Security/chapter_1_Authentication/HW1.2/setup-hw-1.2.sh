@@ -1,4 +1,6 @@
 #!/bin/bash
+killall mongod
+sleep 5
 
 course="M310"
 exercise="HW-1.2"
@@ -25,7 +27,7 @@ mkdir -p "$workingDir/"{r0,r1,r2}
 # launch mongod's
 for ((i=0; i < ${#ports[@]}; i++))
 do
-  mongod --dbpath "$workingDir/r$i" --logpath "$workingDir/r$i/$logName.log" --port ${ports[$i]} --replSet $replSetName --fork
+  mongod --dbpath "$workingDir/r$i" --logpath "$workingDir/r$i/$logName" --port ${ports[$i]} --replSet $replSetName --fork
 done
 
 # initiate the set
@@ -65,4 +67,5 @@ pwd="webscale"
 role="root"
 
 mongo $db --port ${ports[0]} --eval "db.createUser({user: '$user', pwd: '$pwd', roles: ['$role']})"
+#mongo $db --port ${ports[0]} < hw-1.2-addUser.js
 
