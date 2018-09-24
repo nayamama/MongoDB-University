@@ -35,25 +35,15 @@ do
   mongod --dbpath "$workingDir/r$i" --logpath "$workingDir/r$i/$logName" --port ${ports[$i]} --replSet $replSetName --fork
 done
 
-# get the subject from client private certificate
-subject=`openssl x509 -in certs/client.pem -inform PEM -subject -nameopt RFC2253 -noout`
-user=${subject:9:72}
-echo "The user name is $user"
-
 # initiate the set
 mongo --port ${ports[0]} --eval "$initiateStr"
 sleep 30
-
-# get the port for master node
-# mongo --port ${ports[0]]} --eval "rs.isMaster().primary" >> 1.txt
-master_port=`mongo --port ${ports[0]]} --eval "rs.isMaster().primary" | tail -1 | cut -d ":" -f2`
-echo "The port of master node is $master_port"
 
 # add will as the first user
 mongo admin --port ${ports[0]} --eval "db.createUser({user: 'will', pwd: '\$uperAdmin', roles: ['root']})"
 
 # add naya as user with certificate
-mongo --port "$master_port" --eval "db.getSiblingDB('\$external').runCommand({createUser: '$user', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}]})"
+# mongo --port "$master_port" --eval "db.getSiblingDB('\$external').runCommand({createUser: '$user', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}]})"
 
 # create directory for key file
 mkdir -p "$workingDir/pki"
@@ -72,9 +62,25 @@ done
 # wait for all the mongods to exit
 sleep 5
 
-# relaunch the mongods with 2 authentications
+# relaunch the mongods with keyfile as clusterAuthMode and x.509 as client authentications
 for ((i=0; i < ${#ports[@]}; i++))
 do
-  mongod --dbpath "$workingDir/r$i" --logpath "$workingDir/r$i/$logName" --port ${ports[$i]} --replSet $replSetName --fork --keyFile "$workingDir/pki/m310-keyfile" --sslMode requireSSL --clusterAuthMode x509 --sslPEMKeyFile certs/server.pem --sslCAFile certs/ca.pem  --sslClusterFile certs/server.pem
+  mongod --dbpath "$workingDir/r$i" --logpath "$workingDir/r$i/$logName" --port ${ports[$i]} --replSet $replSetName --fork --keyFile "$workingDir/pki/m310-keyfile" --sslMode requireSSL --clusterAuthMode keyFile --sslCAFile certs/ca.pem --sslPEMKeyFile certs/server.pem 
 done
 
+sleep 30
+# login from client
+# mongo --host database.m310.mongodb.university --sslPEMKeyFile "certs/client.pem" --sslCAFile "certs/ca.pem" --ssl --port 31150
+
+# get the subject from client private certificate
+subject=`openssl x509 -in certs/client.pem -inform PEM -subject -nameopt RFC2253 -noout`
+user=${subject:9:72}
+echo "The user name is $user"
+
+# get the port for master node
+# mongo --port ${ports[0]]} --eval "rs.isMaster().primary" >> 1.txt
+master_port=`mongo --host "$host" --sslPEMKeyFile "certs/client.pem" --sslCAFile "certs/ca.pem" --ssl --port ${ports[0]} --eval "rs.isMaster().primary" | tail -1 | cut -d ":" -f2`
+echo "The port of master node is $master_port"
+
+# add certificated user to admin database (always use quatos for quering string values)
+printf 'use admin\ndb.auth("will","\$uperAdmin")\nuse $external\ndb.createUser({user: "%s", roles:[{ role: "userAdminAnyDatabase", db: "admin" }]})' "$user" | mongo --host "$host" --sslPEMKeyFile "certs/client.pem" --sslCAFile "certs/ca.pem" --ssl --port "$master_port"
