@@ -52,11 +52,10 @@ mongo --port ${ports[0]} --eval "$initiateStr"
 sleep 30
 
 # add the first user using localhost exception
-mongo --port 31160 --eval "db.getSiblingDB('\$external').createUser({user: 'adam',  roles: [{role: 'root', db: 'admin'}]})"
+mongo --port 31160 --eval "db.getSiblingDB('\$external').createUser({user: 'alice',  roles: [{role: 'root', db: 'admin'}]})"
 
 # change owner ship of sasl in case sasl change the permission of mux after every time restart
 # sudo chmod 755 /var/run/saslauthd
 
 # authentication
-# mongo --port 31160
-# db.getSiblingDB("$external").auth({mechanism: "PLAIN", user: "adam", pwd: "webscale", digestPassword: false})
+mongo --port 31160 --eval 'db.getSiblingDB("$external").auth({mechanism: "PLAIN", user: "alice", pwd: "password", digestPassword: false})'
