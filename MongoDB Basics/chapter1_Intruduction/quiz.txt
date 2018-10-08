@@ -1,0 +1,35 @@
+1. Which of the following statements are true? Check all that apply.
+
+a. Documents are stored in collections.(Y)
+b. A database may contain one or more collections.(Y)
+c. Each database and collection combination define a namespace.(Y)
+d. We reference a namespace using the name of the database, followed by a comma, followed by the name of the collection, e.g., city,neighborhoods
+
+2. Which of the following are types of data Compass (and MongoDB) recognizes and specifically supports?
+
+a. documents(Y)
+b. arrays(Y)
+c. geospatial data(Y)
+d. rainfall
+e. air pressure
+
+3. Which of statements below best describes the following filter?
+	{"age": {"$gte": 21, "$lt": 70}}
+	
+a. Find all documents for which the age field has a value that is >= 21 and <= 70.
+b. Find all documents for which the age field has a value that is either equal to 21 or equal to 70.
+c. Find all documents for which the age field has a value that is >= 21 and < 70.(Y)
+d. Find all documents for which the age field is < 70.
+
+4. Which of the following data types are directly supported by JSON per the JSON spec?
+
+a. String(Y)
+b. Array(Y)
+c. Object(Y)
+d. Boolean values(Y)
+e. Floating point number(Y)
+f. Null(Y)
+g. POinter
+h. Data
+i. Graph
+j. Decimal number
