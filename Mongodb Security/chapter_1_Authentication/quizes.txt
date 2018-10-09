@@ -1,0 +1,211 @@
+1. Authentication is ...
+
+a. How we know what a user can do on a system.
+b. How we know who a user is on a system. (Y)
+
+2. Which authentication mechanism(s) is/are supported by MongoDB?
+
+a. LTPA
+b. LDAP (Y)
+c. RSA tokens
+d. SCRAM-SHA-1 (Y)
+e. Kerberos (Y)
+
+3. Which of the following statements is/are true?
+
+a. Kerberos is an authentication and authorization protocol.
+b. X.509 can be used to authenticate members of a sharded cluster. (Y)
+c. SCRAM-SHA-1 is a certificate based authentication mechanism.
+d. MONGODB-CR is deprecated as of MongoDB 3.0. (Y)
+e. A copy of a user's LDAP credentials are stored in MongoDB.
+
+4. Which of the following statements is/are false concerning the localhost exception?
+
+a. The localhost exception allows you to create one user per database. (Y)
+b. The localhost exception is only applicable when connected to MongoDB via the localhost network interface.
+c. The localhost exception allows you to run show dbs. (Y)
+d. The localhost exception is disabled once a server becomes a member of a sharded cluster. (Y)
+
+5. Which of these authentication methods will fail if a server is started with the following options?
+
+	$ mongod --auth
+	$ mongo
+	use admin
+	db.createUser({user: 'kirby', pwd: 'password', roles: ['root']})
+	
+a. $ mongo -u kirby -p password (Y)
+b. $ mongo admin -u kirby -p password
+c. $ mongo
+   db.auth('kirby', 'password') (Y)
+d. $ mongo
+   use admin
+   db.auth('kirby', 'password')
+   
+6. Authentication on a sharded cluster is achieved by...
+
+a. passing a --auth option to mongos
+b. passing a --auth option to each mongod
+c. passing a --auth option to each mongod and to mongos
+d. enabling internal authentication between members using keyfiles (Y)
+e. enabling internal authentication between members using X.509 certificates (Y)
+
+7. SCRAM-SHA-1 is the default password authentication mechanism on MongoDB.
+
+a. True (Y)
+b. False
+
+8. How does the mongod know the identity of the client using X.509?
+
+a. It obtains a certificate from the client when the TLS connection is established. (Y)
+b. The certificate must be signed by the certificate authority file passed to the mongod. (Y)
+c. The subject of the certificate must match the name of the user in the $external database. (Y)
+
+9. Which of the following is/are true regarding LDAP authentication?
+
+a. MongoDB drivers authenticating to MongoDB with LDAP send LDAP credentials using SASL PLAIN which sends the username/password in clear text. (Y)
+b. LDAP Authentication support is a MongoDB Enterprise only feature. (Y)
+c. LDAP is more secure than Kerberos
+d. saslauthd is a proxy service used by mongod to talk to a LDAP server. (Y)
+
+10. With MongoDB 3.4 we are further strengthening the MongoDB security features by enabling:
+
+a. LDAP authorization (Y)
+b. X509 certificates authorization
+c. Kerberos authentication
+d. LDAP authentication
+
+11. Which of the following is not an LDAP authorization step:
+
+a. Query the LDAP server to validate user credentials
+b. Validate the mongod for authorized hostname and port (Y)
+c. Transform user credentials
+d. Provide user credentials to authorization server
+e. Validate user credentials for authentication purposes
+
+12. In order to match the credential formats between the authentication and authorization mechanisms, the user credentials may require a transformation step. This transformation is defined by the following format:
+
+a. String value defining a JSON array of regular expression / substitution pairs (Y)
+b. One regular expression / substitution pair
+c. JSON object defining an array of regular expressions / substitution pairs
+d. String enclosing a regular expression and optional substitution string
+
+13. Consider the following MongoDB configuration file snippet:
+
+	//...
+	security:
+	  ldap:
+		servers: 'ldap.mongodb.university'
+		authz:
+		  queryTemplate: '{USER}?memberOf?base'
+		transportSecurity: 'tls'
+		bind:
+		  method: 'simple'
+		userToDNMapping: '[{match: "(.+)", substitution: "uid={0},ou=Users,dc=mongodb,dc=com"}]'
+	  authenticationMechanisms: 'GSSAPI'
+	  //...
+
+Check all statements that are valid, given the above configuration:
+
+a. No transport security has been enabled between MongoDB and the authorization server
+b. MongoDB will be using Kerberos for authentication purposes (Y)
+c. The configured LDAP server is running on secured.mongodb.com
+d. MongoDB will be binding the operating system users for LDAP integration
+e. LDAP authorization is enabled (Y)
+
+14. mongoldap enables us to validate:
+
+a. Validate LDIF files
+b. LDAP authorization options given a MongoDB configuration file (Y)
+c. LDAP server user groups hierarchy
+d. LDAP server TLS configuration
+e. Validate LDAP authorization individual configuration options (Y)
+
+15. To enable the integration of LDAP for authorization purposes in MongoDB, we had to modify the localhost exception. In what does this modification consists of?
+
+a. Extended the locahost host exception to allow the creation of a role (Y)
+b. Alow the creation of more than one user
+c. Allow user defined roles to inherit built-in roles
+d. Remove the locahost exception of MongoDB is configured for LDAP authorization
+
+16. Which of the following statements is/are true?
+
+a. Kerberos and MongoDB have mutual trust through a shared key. (Y)
+b. Kerberos principals are case-sensitive. (Y)
+c. MongoDB uses the GSSAPI authentication mechanism for Kerberos authentication. (Y)
+d. Kerberos Authentication support is a MongoDB Enterprise only feature. (Y)
+
+17. Which of the following security mechanisms is/are supported by internal authentication with MongoDB?
+
+a. MONGODB-CR
+b. X.509 (Y)
+c. LDAP
+d. Kerberos
+e. Keyfile (Y)
+
+18. What is the option passed to mongod (including argument) to specify that X.509 certificates will be used for internal cluster authentication?
+
+--clusterAuthMode x509
+
+19. Which of the following statements are true with respect to changing authentication mechanisms from MONGODB-CR to SCRAM-SHA-1?
+
+a. Updating drivers might be required. (Y)
+b. MONGODB-CR will be disabled after the migration. (Y)
+c. SCRAM-SHA-1 is more secure that MONGODB-CR. (Y)
+d. On 3.0 before importing 2.6 user data new users are created with SCRAM-SHA-1. (Y)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
