@@ -1,0 +1,166 @@
+1. Which of these statements is/are true?
+
+a. Enabling auditing on MongoDB Enterprise will decrease database performance. (Y)
+b. Authentication verifies the privileges of a user.
+c. MongoDB stores access control list data in the special system.acl collection on the admin database.
+d. MongoDB Enterprise's encrypted storage engine is supported by both the MMAPv1 and WiredTiger storage engines.
+e. It's best practice to run mongod with sudo or as the root user on a system.
+
+3. Given the following audit filter:
+
+	{
+	  "$or": [
+		{
+		  "atype": "authCheck",
+		  "param.command": {
+			"$in": [
+			  "find",
+			  "insert",
+			  "delete",
+			  "update",
+			  "findandmodify"
+			]
+		  }
+		},
+		{
+		  "atype": {
+			"$in": [
+			  "createCollection",
+			  "dropCollection"
+			]
+		  }
+		}
+	  ]
+	}
+	
+Which of the following commands would be logged by this audit filter?
+
+a. db.products.find({product: 'Candle'}) (Y)
+b. show dbs
+c. db.products.insert({product: 'Amplifier'}) (Y)
+d. db.products.insertOne({product: 'Basket'}) (Y)
+e. db.products.findOne({product: 'Door Hinge'}) (Y)
+
+4. Which of the following createRole parameters are valid when executed on the production database?
+
+a.
+	{
+	  role: "team-lead",
+	  privileges: [{
+		resource: { replicaSet: true },
+		actions: [ "createUser" ]
+	  }],
+	  roles:[{
+		role: "root", db: "production"
+	  }]
+	}
+b.
+	{
+	  role: "junior-engineer",
+	  privileges: [{
+		resource: { db: "production" },
+		actions: [ "insert" ]
+	  }],
+	  roles:[]
+	}
+c. (Y)
+	{
+	  role: "senior-engineer",
+	  privileges: [],
+	  roles: [ "dbAdmin" ]
+	}
+d.
+	{
+	  role: "intern",
+	  privileges: [{
+		resource: { db: "staging", collection: "products" },
+		actions: [ "insert" ]
+	  }],
+	  roles:[]
+	}
+	
+5. Which of the following statements is/are true?
+
+a. It is a best practice to leave the HTTP status interface disabled in production. (Y)
+b. MongoDB drivers will send LDAP credentials to a connected mongod in plain text. (Y)
+c. kadmin exists solely to enable command line authentication to Kerberos.
+d. MONGODB-CR still exists in MongoDB only for backwards compatibility reasons. (Y)
+e. You can use LDAP to enable internal authentication between the members of a replica set.
+
+6. Which of the following statements is/are true?
+
+a. Encryption at rest is a four step process: generate a master key, generate keys for each database, encrypt each database with the database keys, and encrypt the database keys with the master key. (Y)
+b. Internal authentication via X.509 certificates will enable MongoDB's role-based access control authorization system. (Y)
+c. The localhost exception applies to a replica set and sharded cluster environments. (Y)
+d. Audit logs can go to one of four locations: the system log, the console, to another MongoDB member, or to a file.
+e. When you enable encryption at rest, transport encryption between replicating members is automatically enabled.
+
+7. Which of the following statements is/are true?
+
+a. MongoDB stores user-defined role information in the system.roles collection in the admin database. (Y)
+b. The subject of a client certificate acts as the "user" when authenticating with X.509 certificates. (Y)
+c. The preferSSL SSL mode allows the server to accept both TLS and non-TLS connections between both clients and other members.
+d. When enabling internal authentication between the members of a replica set both certificate and key must be present in the CA, client, and server PEM files.
+e. When auditing is enabled on MongoDB Enterprise, the --auditFormat BSON option has much better performance than the --auditFormat JSON option. (Y)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
