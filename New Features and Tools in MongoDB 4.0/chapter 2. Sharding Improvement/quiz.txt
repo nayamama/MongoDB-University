@@ -1,0 +1,28 @@
+1. Which of the following are true about the sharded kill command?
+
+a. Allows administrators to kill operations in the mongos that spawn into individual shards (Y)
+b. Allows administrators to kill sessions only on the mongod on which it is run
+c. Kills all cursors currently open in the mongos on which it is run
+d. Kills all the mongos processes of the sharded cluster
+e. All of the above
+
+2. How to kill an operation in code?
+
+	mongos> use admin;
+	mongos> let opToKill = db.aggregate([{$currentOp: {localOps: true}}, {$match: <filter>}]).toArray()[0];
+	mongos> let opid = opToKill.opid;
+	mongos> db.killOp(opid)
+	
+3. Which of the following statements are true as a result of the replication improvements in MongoDB 4.0?
+
+a. Writes with a concern of majority on the Primary are acknowledged faster (Y)
+
+	Because Secondaries may apply their writes faster than previous versions, if you have concurrency reads, the Primary may see the replication of data terminate quicker on other nodes and will be able to confirm the majority aspect of a write quicker to the application.
+
+b. Reads on Secondaries are not blocked while Oplog entries are applied (Y)
+
+	MongoDB 4.0 is making use of a read only snapshot of the documents, while applying the writes needed to keep the secondary in sync with the cluster.
+
+c. You need to change your application code to benefit from the improvements
+
+	Unless seeing faster acknowledgements on reads and/or writes would cause an issue to your application, there is nothing to change. Just enjoy lower latency with some operations!
