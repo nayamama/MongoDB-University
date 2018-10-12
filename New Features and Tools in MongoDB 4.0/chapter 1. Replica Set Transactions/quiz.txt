@@ -1,0 +1,30 @@
+1. Which of the following statements are true about MongoDB Replica Set Transactions?
+
+a. Transactions work across Replica Set clusters. (Y)
+b. Prior to transactions, MongoDB was not able to guarantee ACID operations over single document operations.
+c. Transactions only work with standalone mongod instances.
+d. With transactions in MongoDB, schema design is no longer relevant.
+
+2. Which of the following are true in the case of multi-document transaction operations?
+
+a. WiredTiger can proactively evict snapshots and abort transactions if cache pressure thresholds are reached. (Y)
+b. If a transaction takes more than 60 seconds to complete, it will abort. (Y)
+c. In cases where there is a significant amount of write operations in one single transaction (more than 1000 changed documents), the transaction should be broken into smaller sets of operations. (Y)
+d. You can only read up to 1000 documents in a transaction.
+	(There are no practical limits to the number of documents that can be read in a transaction. There's only the limit of up to 1000 documents modified in a single transaction. For those cases, we should split the transaction across several transactions.)
+	
+3. Which of the following statements are correct?
+
+a. Reads can still occur while a write lock is taken. (Y)
+b. All writes not in a transaction context will be applied before the transaction write lock are released.
+c. All writes not in a transaction context will fail while a transaction is taking place.
+d. Transaction writes cannot be retried.
+	(All write operations wait until the transaction aborts or commits)
+	
+4. What can cause TransientTransactionError to occur?
+
+a. Network failures (Y)
+b. WriteConflict errors (Y)
+c. Stack overflow error
+d. Out-of-memory error
+e. Null pointer exception
