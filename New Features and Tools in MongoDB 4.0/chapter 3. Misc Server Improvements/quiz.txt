@@ -1,0 +1,18 @@
+1. Which of the following are true of TLS 1.2?
+
+a. Your data should be securely encrypted in transit to prevent unauthorized access to it via the network. (Y)
+b. TLS certificates can be used as a means of securely confirming the identity of an entity attempting to access your data. (Y)
+c. Without it, you may fail to meet corporate security policies which can prevent your applications from going into production. (Y)
+
+2. How to add SCRAM SHA-256 as a supported mechanism for existing user?
+
+	db.runCommand({usersInfo: {forAllDBs: true}, filter: {mechanisms: {$ne: "SCRAM-SHA-256"}}})
+	db.updateUser("old_user", {pwd: "new_pass"})
+	
+3. Which of the following are improvements were added to Change Streams in MongoDB 4.0?
+
+a. Change Event document provides information on txnNumber (Y)
+b. Listen for changes in documents across all collections in a database (Y)
+c. Resume a change stream
+d. Listen for changes across a cluster (Y)
+e. Open a change stream to track update operations only
