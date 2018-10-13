@@ -1,0 +1,25 @@
+1. How to sort documents using a field with multiple types value?
+	
+	db.address.aggregate( [
+	  {
+		$addFields: {
+		  building: {
+			$convert: {
+			  input: "$building",
+			  to: "int",
+			  onError: 0,
+			  onNull: -1
+			}
+		  }
+		}
+	  },
+	  { $sort: {building: 1}}
+	])
+	
+2. Which of the following are new Aggregation expressions in MongoDB 4.0?
+
+a. $rtrim (Y)
+b. $convert (Y)
+c. $dateFromString
+d. $toInt (Y)
+e. $toObjectId (Y)
