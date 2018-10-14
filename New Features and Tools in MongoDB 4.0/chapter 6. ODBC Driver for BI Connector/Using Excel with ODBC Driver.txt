@@ -1,0 +1,30 @@
+a. On the machine running replica set (Ubuntu 16.4)
+
+	1. Start replica set
+
+	2. Import dataset
+		mongoimport -d m040 -c companies companies.json
+		
+	3. Start up mongosqld with option
+		mongosqld --addr 192.168.40.100:3307 --mongo-uri mongodb://m040:27017
+	
+b. On the machine running BI (Windows)
+
+	1. Download ODBC driver
+	
+	2. config DSN 
+		Control Panel --> System and Security --> Administrative Tools --> Data Source (ODBC)
+		User DSN --> add "MongoDB UNICODE ODBC"
+			Data Source Name: my choice
+			TCP server: 192.168.40.100
+			Port: 3307
+			Database Name: <corresponding database>
+			
+	3. Open Excel
+		Data --> From Other Source --> From Data Connection Wizard --> ODBC DSN --> <Data Source Name>
+		
+	
+		
+	
+
+	
