@@ -1,0 +1,71 @@
+1. Which Cloud Provider(s) are supported by Atlas?
+
+a. Amazon Web Services (Y)
+b. Red Hat
+c. Dropbox
+d. Microsoft Azure (Y)
+e. Google Cloud Platform (Y)
+
+2. Which of the following statements are not true regarding the use of the BI connector with Atlas?
+
+a. You can target a secondary node, in order to not disturb the working set on the Primary
+b. By using the Atlas-hosted BI connector, you don't have to start and manage a BI Connector process
+c. The BI Connector is a Premium capability
+d. The BI Connector only works for MongoDB version of 4.0 or greater (Y)
+e. You can use Excel to connect to a MongoDB database with the BI Connector
+
+3. Which of the following statements is not true regarding the use of the Data Explorer in Atlas?
+
+a. You can create collections
+b. You can kill a long running query (Y)
+c. You can insert a document in a collection
+d. You can see the indexes of a given collection
+e. You can clone a document
+
+4. Which of the following is the new preferred mechanism in MongoDB to specify a connection string, and now supported in Atlas?
+
+a. A list of mongos hostnames
+b. A SRV DNS record (Y)
+c. A list of mongod hostnames
+d. A list of mongos IP addresses
+e. The application IP address
+
+5. Which of the following are Advanced Security Features supported for clusters managed by Atlas?
+
+a. AWS IAM Roles
+b. LDAP Authentication (Y)
+c. LDAP Authorization (Y)
+d. Database Auditing (Y)
+e. Two Factor Authentication
+
+6. Which of the following statements is not true regarding the help Atlas can give you to eliminate problems?
+
+a. You can upgrade to an instance with more memory with few clicks and no downtime.
+b. The Performance Advisor can recommend indexes for detected slow queries.
+c. Atlas can automatically increase the storage capacity if the disks are getting full.
+d. You can easily move a replica from one region to another region with no downtime.
+e. Atlas can suggest a different and optimal schema for your documents. (Y)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
