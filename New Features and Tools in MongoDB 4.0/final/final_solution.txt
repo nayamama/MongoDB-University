@@ -1,0 +1,122 @@
+1. Consider the following set of operations executing in the mongo shell:
+
+	use m040
+	db.a.insert({_id: 1})
+	s1 = db.getMongo().startSession()
+	s2 = db.getMongo().startSession()
+	s1.startTransaction()
+	s2.startTransaction()
+	s1.getDatabase("m040").a.find()
+	s2.getDatabase("m040").a.find()
+	s1.getDatabase("m040").a.update({_id:1}, {$set: {value: "s1"}})
+	s1.getDatabase("m040").a.find() // line 10
+	s2.getDatabase("m040").a.find() // line 11
+	s2.getDatabase("m040").a.update({_id:1}, {$set: {value: "s2"}})
+	s1.getDatabase("m040").a.find()
+	s2.getDatabase("m040").a.find()
+	s1.abortTransaction()
+	s2.abortTransaction()
+	s1.getDatabase("m040").a.find()
+	s2.getDatabase("m040").a.find() // line 18
+
+a.The output of line 11 is
+	{
+	  _id: 1,
+	  value: "s2"
+	}
+b. WriteConflict occurs on line 12 (Y)
+c. The output of line 10 is
+	{
+	  _id: 1,
+	  value: "s1"
+	} (Y)
+d. The output of line 18 is
+	{
+	  _id: 1,
+	  value: "s1"
+	}
+	
+2. Which of the following are new capabilities added in MongoDB 4.0 for sharded cluster administration ?
+
+a. Aborting an operation running on many shards (Y)
+b. Sharding on a hashed shard key
+c. Identifying slow queries in the mongos logs (Y)
+d. Adding tags to shards
+
+3. Consider this document:
+
+	{
+	  _id: 1,
+	  time: "10/01/2018"
+	}
+	If we execute the following aggregation:
+
+	db.collection.aggregate([
+	  {
+		$addFields: {
+		  time: {
+			$dateToParts: {
+			  date: {
+				$dateFromString: {
+				  dateString: "$time",
+				  format: "%d/%m/%Y"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  {
+		$project:{
+		  time: {
+			$dateFromParts: {
+			  "month": {$add:[-13, "$time.month"]},
+			  "year": "$time.year"
+			}
+		  }
+		}
+	  }
+	])
+
+a. The aggregation command fails due to an out-of-bound date.
+b. The year on the date is 2016. (Y)
+c. The day in the date field is 1st of December. (Y)
+d. The _id is not present in the output document.
+e. The aggregation command fails with an "Unknown format field error".
+
+4. Which of the following statements is/are true regarding features recently added to Atlas?
+
+a. You must use the live migrator tool to migrate out of the free tier.
+b. In Azure, Atlas supports backups as local snapshots in the region in which the cluster is located. (Y)
+c. Using the Atlas BI connector frees you from maintaining the process locally. (Y)
+d. Atlas allows to keep data in given regions to comply with data governance, like GDPR. (Y)
+e. Only AWS supports sharded clusters.
+
+5. Which of the following statements is/are true regarding upgrades to MongoDB 4.0 or downgrades from 4.0?
+
+a. You can downgrade a cluster without downtime (Y)
+b. The flag previousVersionCompatibility controls the ability to use the new 4.0 features
+c. You can upgrade a cluster without downtime (Y)
+d. You can upgrade directly from MongoDB 3.4 to MongoDB 4.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
