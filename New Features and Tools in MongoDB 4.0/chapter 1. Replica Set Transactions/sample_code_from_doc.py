@@ -1,3 +1,6 @@
+# "UnknownTransactionCommitResult" error label when commitTransaction fails with a network error, server selection error, or write concern failed / timeout.
+# "TransientTransactionError" error label when there is network failure or write conflict
+
 def run_transaction_with_retry(txn_func, session):
     while True:
         try:
