@@ -1,0 +1,10 @@
+What do the methods find() and find_one() have in common?
+
+a. They are used to query documents in a collection. (Y)
+b. They accept a field projection. (Y)
+c. They accept a query predicate. (Y)
+d. They return a cursor.
+
+notes: 
+find() returns a cursor
+find_one() returns a document
