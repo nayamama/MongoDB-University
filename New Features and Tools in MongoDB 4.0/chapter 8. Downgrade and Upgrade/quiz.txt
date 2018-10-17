@@ -1,0 +1,14 @@
+1. Which of the following statements is/are true about downgrading from MongoDB 4.0?
+
+a. You can downgrade a replica set without incurring downtime. (Y)
+b. It is easier to downgrade if you have not activated and started using the new 4.0 features with setFeatureCompatibilityVersion: 4.0. (Y)
+c. When downgrading a cluster from MongoDB 4.0 to Mongo 3.6, you can still use multi-document transactions, because all the support for the functionality is coded in the driver, not in the mongod server.
+
+2. Which of the following statement is/are true about upgrading to MongoDB 4.0?
+
+a. You should test the migration in a test or staging environment before doing it on the production cluster. (Y)
+b. TLS 1.0 is still supported in MongoDB 4.0. (Y)
+c. When migrating an existing 3.6 cluster, replacing the binaries of MongoDB 3.6 by the 4.0 binaries will give you access to all new features.
+
+notes:
+db.adminCommand( { setFeatureCompatibilityVersion: "4.0" } )
