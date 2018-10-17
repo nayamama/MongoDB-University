@@ -1,0 +1,13 @@
+1. What kind of Kubernetes object is used to deploy a MongoDB replica set?
+
+a. StatefulSet (Y)
+b. Deployment
+c. DaemonSet
+d. HashMap
+
+2. Which kind of MongoDB Ops Manager agent is automatically deployed into the container for each MongoDB database node launched through the Ops Manager Kubernetes Operator (OMKO)?
+
+a. Automation (Y)
+b. Query Planner
+c. Backup
+d. Shard Balancer
