@@ -150,7 +150,8 @@ def login():
             'error': {'email': 'Make sure your email is correct.'}
         }
         return make_response(jsonify(response_object)), 401
-    if not bcrypt.check_password_hash(userdata['password'], password):
+    #if not bcrypt.check_password_hash(userdata['password'], password):
+    if not bcrypt.check_password_hash(userdata['pw'], password):
         response_object = {
             'status': 'fail',
             'error': {'password': 'Make sure your password is correct.'}
