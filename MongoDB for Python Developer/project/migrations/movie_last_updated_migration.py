@@ -15,7 +15,7 @@ us. We just need to make sure the correct operations are sent to MongoDB!
 """
 
 # ensure you update your host information below!
-host = "mongodb+srv://qi:meng60195@mflix-ubcdw.mongodb.net"
+host = "mongodb+srv://qi:<password>@mflix-ubcdw.mongodb.net"
 mflix = MongoClient(host)["mflix"]
 
 # TODO: Create the proper predicate and projection
