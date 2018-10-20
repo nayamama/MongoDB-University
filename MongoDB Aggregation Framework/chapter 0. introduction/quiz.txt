@@ -1,0 +1,14 @@
+1. Which of the following is true about pipelines and the Aggregation Framework?
+
+a. Stages cannot be configured to produce our desired output.
+b. Documents flow through the pipeline, passing from one stage to the next (Y)
+c. Pipelines must consist of at least two stages.
+d. The Aggregation Framework provides us many stages to filter and transform our data (Y)
+
+2. Which of the following statements is true?
+
+a. An aggregation pipeline is an array of stages. (Y)
+b. Only one expression per stage can be used.
+c. Some expressions can only be used in certain stages. (Y)
+
+notes:  For example, accumulator expressions can only be used within the $group stage, with select accumulator expressions available in the $project stage. 
