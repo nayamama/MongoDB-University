@@ -1,0 +1,10 @@
+var pipeline = [{$match: {$and: [{"imdb.rating": {$gte: 7}}, 						# imdb.rating is at least 7
+						{"genres": {$exists: true, $nin: ["Crime", "Horror"]}}, 	# genres does not contain "Crime" or "Horror"
+						{$or: [{"rated": {$eq: "PG"}}, {"rated": {$eq: "G"}}] }, 	# rated is either "PG" or "G"
+						{"languages": {$all: ["English","Japanese"]}}]}}]			# languages contains "English" and "Japanese"
+
+
+
+				
+{ $or: [ { <expression1> }, { <expression2> }, ... , { <expressionN> } ] }
+{ <field>: { $all: [ <value1> , <value2> ... ] } }

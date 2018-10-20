@@ -1,0 +1,10 @@
+db.movies.aggregate([{$project: {"title_str": {$split: ["$title", " "]}, "_id": 0}}, 	# split the title using space as delimiter
+					{$project: {"title_str": 1, "len_arr": {$size: "$title_str"}}}, 	# calculate the length of title array and assign it as new field
+					{$match: {"len_arr": 1}}, 											# filter the length of title is just one
+					{$project: {"title_str": 1, "len_arr": 1}}]).itcount()				# print out the result
+
+					
+{ $split: [ <string expression>, <delimiter> ] }
+{ $size: <expression> }
+{ $match: { <query> } }
+{ $project: { <specification(s)> } }

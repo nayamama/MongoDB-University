@@ -1,0 +1,63 @@
+1. Which of the following is/are true of the $match stage?
+
+a. It uses the familiar MongoDB query language. (Y)
+b. $match can only filter documents on one field.
+c. It should come very early in an aggregation pipeline. (Y)
+d. $match can use both query operators and aggregation expressions.
+
+notes: If we use $match in early stage, we can reduce the number of documents to process, and use the indexes within the pipeline execution.
+
+2. Which of the following statements are true of the $project stage?
+
+a. Once we specify a field to retain or perform some computation in a $project stage, we must specify all fields we wish to retain. The only exception to this is the _id field. (Y)
+b. Beyond simply removing and retaining fields, $project lets us add new fields. (Y)
+c. $project can only be used once within an Aggregation pipeline.
+d. $project cannot be used to assign new values to existing fields.
+
+3.
+db.movies.aggregate([
+  {
+    $match: {
+      cast: { $elemMatch: { $exists: true } },
+      directors: { $elemMatch: { $exists: true } },
+      writers: { $elemMatch: { $exists: true } }
+    }
+  },																#  filter out documents that are not array or is empty
+  {
+    $project: {
+      _id: 0,
+      cast: 1,
+      directors: 1,
+      writers: {
+        $map: {
+          input: "$writers",
+          as: "writer",
+          in: {
+            $arrayElemAt: [
+              {
+                $split: ["$$writer", " ("]
+              },
+              0
+            ]
+          }
+        }
+      }
+    }
+  },																#  keep the fields we are interested and process the writers field
+  {																	#  split the writers and keep the first element of array
+    $project: {
+      labor_of_love: {
+        $gt: [
+          { $size: { $setIntersection: ["$cast", "$directors", "$writers"] } },
+          0
+        ]
+      }
+    }
+  },																#  create a new field that reflects the intersection of 3 existing fields
+  {
+    $match: { labor_of_love: true }
+  },																# filter again	
+  {
+    $count: "labors of love"
+  }
+])
