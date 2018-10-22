@@ -1,0 +1,104 @@
+1. which of the following aggregation pipelines are single facet queries?
+
+a. [
+  {"$match": { "$text": {"$search": "network"}}},
+  {"$sortByCount": "$offices.city"},
+] (Y)
+
+b. [
+  {"$unwind": "$offices"},
+  {"$project": { "_id": "$name", "hq": "$offices.city"}},
+  {"$sortByCount": "$hq"},
+  {"$sort": {"_id":-1}},
+  {"$limit": 100}
+] (Y)
+
+c. [
+  {"$match": { "$text": {"$search": "network"}}},
+  {"$unwind": "$offices"},
+  {"$sort": {"_id":-1}}
+]
+
+notes: Single query facets are supported by the new aggregation pipeline stage $sortByCount.
+
+2. Assuming that field1 is composed of double values, ranging between 0 and Infinity, and field2 is of type string, which of the following stages are correct?
+
+a. {'$bucket': { 'groupBy': '$field1', 'boundaries': [ "a", 3, 5.5 ]}}
+b. {'$bucket': { 'groupBy': '$field1', 'boundaries': [ 0.4, Infinity ]}}
+c. {'$bucket': { 'groupBy': '$field2', 'boundaries': [ "a", "asdas", "z" ], 'default': 'Others'}} (Y)
+
+3. Auto Bucketing will ...
+
+a. given a number of buckets, try to distribute documents evenly accross buckets. (Y)
+b. adhere bucket boundaries to a numerical series set by the granularity option. (Y)
+c. randomly distributed documents accross arbitrarily defined bucket boundaries.
+d. count only documents that contain the groupBy field defined in the documents.
+
+4. Which of the following statement(s) apply to the $facet stage?
+
+a. The $facet stage allows several sub-pipelines to be executed to produce multiple facets. (Y)
+b. The $facet stage allows the application to generate several different facets with one single database request. (Y)
+c. The output of the individual $facet sub-pipelines can be shared using the expression $$FACET.$.
+d. We can only use facets stages ($sortByCount, $bucket and $bucketAuto) as sub-pipelines of $facet stage.
+
+lab:
+
+db.movies.aggregate([
+  {
+    $match: {
+      metacritic: { $gte: 0 },
+      "imdb.rating": { $gte: 0 }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      metacritic: 1,
+      imdb: 1,
+      title: 1
+    }
+  },
+  {
+    $facet: {
+      top_metacritic: [
+        {
+          $sort: {
+            metacritic: -1,
+            title: 1
+          }
+        },
+        {
+          $limit: 10
+        },
+        {
+          $project: {
+            title: 1
+          }
+        }
+      ],
+      top_imdb: [
+        {
+          $sort: {
+            "imdb.rating": -1,
+            title: 1
+          }
+        },
+        {
+          $limit: 10
+        },
+        {
+          $project: {
+            title: 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    $project: {
+      movies_in_both: {
+        $setIntersection: ["$top_metacritic", "$top_imdb"]
+      }
+    }
+  }
+])
