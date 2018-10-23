@@ -1,0 +1,75 @@
+1. What do the methods find() and find_one() have in common?
+
+a. They are used to query documents in a collection. (Y)
+b. They accept a field projection. (Y)
+c. They accept a query predicate. (Y)
+d. They return a cursor.
+
+2. Which of the following aggregation stages have equivalent cursor methods?
+
+$out
+$sort (Y)
+$skip (Y)
+$limit (Y)
+$sortByCount
+
+3. What is true about the result object of an insert_one (InsertOneResult)?
+
+a. It contains the _id of an inserted document. (Y)
+b. It contains a copy of the inserted document.
+c. It can tell us whether the operation was acknowledged by the server. (Y)
+d. It is a cursor.
+
+notes: InsertOneResult only has two attributes.
+
+4. Which of the following Write Concerns are valid in a 3-node replica set?
+
+w: all
+w: 0 (Y)
+w: 1 (Y)
+w: majority (Y)
+w: 5
+
+notes: If the number of w is over the total number of nodes, driver will throw aa error.
+
+5. Which of the following are valid update operators in Pymongo?
+
+$remove
+$set (Y)
+$push (Y)
+$inc (Y)
+$update
+
+6. Why did we use the let expression with expressive $lookup, when joining the "comments" to the "movies" collection?
+
+a. To use fields from the "movies" collection in the pipeline. (Y)
+b. To select the comments collection as the collection we are joining.
+c. To use fields from the comments collection pipeline.
+d. To store the output of the pipeline in the movie_comments field.
+
+notes: In $lookup, "let" map the field in base collection to a variable
+
+7. Which of the following is true about deleting documents in Pymongo?
+
+a. Pymongo can only delete one document at a time.
+b. DeleteResult objects contain the number of deleted documents. (Y)
+c. delete_many() can delete any number of documents. (Y)
+d. delete_one() can only delete one document. (Y)
+e. delete_one() will not return a DeleteResult object.
+
+8. Which of the following Read Concerns are valid in a 3-node replica set?
+
+1
+"majority" (Y)
+"local" (Y)
+"nearest"
+0
+
+notes: The available read concern levels: local, available
+
+9. Which of the following is true about bulk writes?
+
+a. Bulk writes decrease the effect of latency on overall operation time. (Y)
+b. The server will send one acknowledgement for each write in a bulk operation.
+c. By default, bulk writes are ordered. (Y)
+d. If a failure occurs during an ordered bulk write, the server will continue executing the rest of the batch.
