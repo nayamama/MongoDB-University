@@ -1,0 +1,21 @@
+1. With regards to aggregation performance, which of the following are true?
+
+a. You can increase index usage by moving $match stages to the end of your pipeline
+b. Passing allowDiskUsage to your aggregation queries will seriously increase their performance
+c. When $limit and $sort are close together a very performant top-k sort can be performed (Y)
+d. Transforming data in a pipeline stage prevents us from using indexes in the stages that follow (Y)
+
+2. What operators will cause a merge stage on the primary shard for a database?
+
+a. $out (Y)
+b. $group
+c. $facet (Y)
+d. $lookup (Y)
+
+3. Which of the following statements is/are true?
+
+a. The Aggregation Framework will automatically reorder stages in certain conditions
+b. The query in a $match stage can be entirely covered by an index
+c. The Aggregation Framework can automatically project fields if the shape of the final document is only dependent upon those fields in the input document.
+d. Causing a merge in a sharded deployment will cause all subsequent pipeline stages to be performed in the same location as the merge
+e. All of above. (Y)
