@@ -11,6 +11,7 @@ a. $out (Y)
 b. $group
 c. $facet (Y)
 d. $lookup (Y)
+e. $graphLookup (Y)
 
 3. Which of the following statements is/are true?
 
