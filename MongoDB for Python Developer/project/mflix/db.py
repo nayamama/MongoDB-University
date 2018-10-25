@@ -437,7 +437,7 @@ def add_user(name, email, hashedpw):
             {
                 "name": name,
                 "email": email,
-                "pw": hashedpw
+                "password": hashedpw
             }
         )
         return {"success": True}
