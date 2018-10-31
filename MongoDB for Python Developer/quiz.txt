@@ -73,3 +73,91 @@ a. Bulk writes decrease the effect of latency on overall operation time. (Y)
 b. The server will send one acknowledgement for each write in a bulk operation.
 c. By default, bulk writes are ordered. (Y)
 d. If a failure occurs during an ordered bulk write, the server will continue executing the rest of the batch.
+
+10. Which of the following are benefits of connection pooling?
+
+a. New operations can be serviced with pre-existing connections, so a new connection doesn't have to be created each time. (Y)
+b. Multiple database clients can share a connection pool.
+c. A large influx of operations can be handled more quickly with a pool of existing connections. (Y)
+d. The connection pool will persist after the client is terminated.
+
+11. When should you set a wtimeout?
+
+a. When our application is using a Write Concern more durable than w: 1. (Y)
+b. When our application is using a Read Concern more durable than "available".
+c. When our application is issuing bulk operations in large batches.
+d. When our application is using a connection pool of 100 or more connections.
+
+12. What of the following is true about Change Streams in Pymongo?
+
+a. hey can stay open for up to 10 minutes.
+b. They can be used to log changes to a MongoDB collection. (Y)
+c. They output cursors, which contain change event documents. (Y)
+d. They accept pipelines, which can be used to filter output from the change stream. (Y)
+e. They will not log changes associated with insert operations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
