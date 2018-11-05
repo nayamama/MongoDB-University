@@ -1,0 +1,107 @@
+1. We have a collection in which the documents look like this:
+	{
+	  "year" : 1828,
+	  "winner" : "Andrew Jackson",
+	  "winner_running_mate" : "John C. Calhoun",
+	  "winner_party" : "Democratic",
+	  "winner_electoral_votes" : 178,
+	  "total_electoral_votes" : 261
+	}
+Which of the following queries will retrieve all the Republican winners with at least 160 electoral votes?
+
+answer: 
+	db.elections.find( { "winner_party": "Republican",
+                     "winner_electoral_votes": { "$gte": 160 } } )
+					 
+2. We have a collection called "phones", in which each document looks like this:
+	{
+	  "model": 5,
+	  "date_issued": ISODate("2016-07-27T20:27:52.834Z"),
+	  "software_version": 4.8,
+	  "needs_to_update": False
+	}
+Now we want to set the "needs_to_update" to "true" when "software_version" is lower than "4.0".
+
+answer:
+	db.phones.update_many( { "software_version": { "$lt": 4.0 } },
+                       { "$set": { "needs_to_update": True } } )
+					   
+3. Suppose an instance of MongoClient is created with the default settings:
+
+	from pymongo import MongoClient
+	uri = "mongodb+srv://m220-user:m220-pass@m220-lessons-mcxlm.mongodb.net/test"
+	mc = MongoClient(uri)
+	mc.stats
+
+The output is:
+	Database(MongoClient(host=['m220-lessons-shard-00-02-mcxlm.mongodb.net:27017', 'm220-lessons-shard-00-00-mcxlm.mongodb.net:27017', 'm220-lessons-shard-00-01-mcxlm.mongodb.net:27017'], document_class=dict, tz_aware=False, connect=True, authsource='admin', replicaset='m220-lessons-shard-0', ssl=True), 'stats')
+
+4. Suppose a client application is sending writes to a replica set with 3 nodes.Before returing an ack back to the client, the replica set waits. When the write has been applied by a "primary" and a "secondary". It returns an ack back to the client. What Write Concern was used in this operation.
+
+answer:
+	w: majority
+	
+5. Given the following bulk write statement to a collection called employees, which of insert operations in "requests" will succeed?
+
+	requests = [
+	  InsertOne({ '_id': 11, 'name': 'Edgar Martinez', 'salary': "8.5M" }),    # Insert #1
+	  InsertOne({ '_id': 3, 'name': 'Alex Rodriguez', 'salary': "18.3M" }),    # Insert #2
+	  InsertOne({ '_id': 24, 'name': 'Ken Griffey Jr.', 'salary': "12.4M" }),  # Insert #3
+	  InsertOne({ '_id': 11, 'name': 'David Bell', 'salary': "2.5M" }),        # Insert #4
+	  InsertOne({ '_id': 19, 'name': 'Jay Buhner', 'salary': "5.1M" })         # Insert #5
+	]
+	response = employees.bulk_write(requests)
+
+answer: 
+	#1, #2, #3.
+	
+6. Suppose a client application is sending writes to a replica set with three nodes, but the primary node stops responding. The client is only sending insert statement with write concern "w: 1" to the server. After 30 seconds, the client cannot connect to a new primary, which of the following exception will be rised by pymongo?
+
+answer:
+	ServerSelectionTimeoutError
+	
+7. Assume a collection called "people_heights" with documents that looks like this:
+	{
+	  "name": "Ada",
+	  "height": 1.7
+	}
+which of following queries will find only the 4th- and 5th-tallest people?
+
+a. db.people_heights.find().sort("height", -1).limit(5).skip(3) (Y)
+b. db.people_heights.find().sort("height", -1).skip(3).limit(5)
+c. db.people_heights.find().sort("height", -1).skip(3).limit(2) (Y)
+d. db.people_heights.find().sort("height", -1).skip(5).limit(3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
