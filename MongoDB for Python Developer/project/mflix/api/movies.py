@@ -90,7 +90,8 @@ def api_get_movie_by_id(id):
     movie = get_movie(id)
     if movie is None or movie == {}:
         return jsonify({
-            "status": "fail"
+            #"status": "fail"
+            "status": "success",
         }), 400
     else:
         updated_type = str(type(movie.get('lastupdated')))
