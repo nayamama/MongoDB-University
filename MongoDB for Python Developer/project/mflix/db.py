@@ -263,6 +263,7 @@ def get_movie(id):
 
         # TODO: Get Comments
         # Implement the required pipeline.
+        '''
         pipeline = [
             {
                 "$match": {
@@ -276,6 +277,30 @@ def get_movie(id):
                     "foreignField": "movie_id",
                     "as": "comments"
                 }
+            },
+        ]
+        '''
+
+        pipeline = [
+            {
+                "$match": {
+                    "_id": ObjectId(id)
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "comments",
+                    "let": {"id": "$_id"},
+                    "pipeline": [
+                        {"$sort": {"date": -1}},
+                        {"$match": {
+                            "$expr": {
+                                "$eq": ["$movie_id", "$$id"]
+                            }
+                        }}
+                    ],
+                    "as": "comments"
+                }
             }
         ]
 
@@ -285,7 +310,7 @@ def get_movie(id):
         # TODO: Error Handling
         # If an invalid ID is passed to `get_movie`, it should return None.
     except (InvalidId, StopIteration) as _:
-
+    #except StopIteration as e:
         """
         Ticket: Error Handling
 
